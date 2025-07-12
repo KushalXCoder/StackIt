@@ -16,13 +16,13 @@ async function downvote(req, res) {
             });
         }
 
-        const hasdownvoted = answer.downvotes.includes(userId);
+        const hasDownvoted = answer.downvotes.includes(userId);
 
-        if (hasdownvoted) {
-            answer.downvotes = answer.downvotes.filer(id => id.toString() !== userId);
+        if (hasDownvoted) {
+            answer.downvotes = answer.downvotes.filter(id => id.toString() !== userId);
         } else {
             answer.downvotes.push(userId);
-            answer.upvotes = answer.upvotes.filter(id => id.toString !== userId);
+            answer.upvotes = answer.upvotes.filter(id => id.toString() !== userId);
         }
 
         await answer.save();
@@ -33,7 +33,7 @@ async function downvote(req, res) {
                 answerId: answer._id,
                 downvotes: answer.downvotes.length,
                 upvotes: answer.upvotes.length,
-                userdownvoted: !hasdownvoted
+                userdownvoted: !hasDownvoted
             }
         });
 

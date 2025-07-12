@@ -19,10 +19,10 @@ async function upvote(req, res) {
         const hasUpvoted = answer.upvotes.includes(userId);
 
         if (hasUpvoted) {
-            answer.upvotes = answer.upvotes.filer(id => id.toString() !== userId);
+            answer.upvotes = answer.upvotes.filter(id => id.toString() !== userId);
         } else {
             answer.upvotes.push(userId);
-            answer.downvotes = answer.downvotes.filter(id => id.toString !== userId);
+            answer.downvotes = answer.downvotes.filter(id => id.toString() !== userId);
         }
 
         await answer.save();
