@@ -3,7 +3,7 @@ const Question = require('../../Schemas/question.schema');
 async function deleteQuestion(req, res) {
     try {
         const userId = req.user._id;
-        const { questionId } = req.params;
+        const { questionId } = req.body;
 
         const question = await Question.findById(questionId);
         if (!question) {
