@@ -16,7 +16,7 @@ export default function AskQuestion() {
   .filter(src => src.startsWith("data:image"));
   const tagsList = tags.trim().split(/\s+/);
   const plainTextDescription = doc.body.innerText;
-    await fetch("/create/questions", {
+    await fetch("http://localhost:9000/create/questions", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title:title, content: plainTextDescription, tags:tagsList,images:base64Images }),
