@@ -2,17 +2,17 @@ const Question = require('../../Schemas/question.schema');
 
 async function searchQuestionByTag(req, res) {
     try {
-        const query = req.query.tag; // Get the tag from query parameters
-        if (!query) {
+        const tags = req.query.tags; // Get the tag from query parameters
+        if (!tags) {
             return res.status(400).json({
                 status: "error",
                 message: "Tag query parameter is required",
             });
         }
 
-        // Search for questions with matching tags
+        const tagsArray = tags.split(",");
         const questions = await Question.find({
-            tags: { $regex: query, $options: "i" }, // Case-insensitive search
+            tags: { $in: tagsArray }, // Case-insensitive search
         });
 
         if (questions.length === 0) {
