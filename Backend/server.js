@@ -36,8 +36,8 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/auth", authRouter);
-app.use("/admin", middleware("admin"), adminRouter);
-app.use("/user", middleware("admin|user"), userRouter);
-app.use("/guest", middleware("admin|user|guest"), guestRouter);
+app.use("/admin", (req, res, next) => middleware("admin", req, res, next), adminRouter);
+app.use("/user", (req, res, next) => middleware("admin|user", req, res, next), userRouter);
+app.use("/guest", (req, res, next) => middleware("admin|user|guest", req, res, next), guestRouter);
 
 app.listen(port, () => console.log("Connected to port:", port));
