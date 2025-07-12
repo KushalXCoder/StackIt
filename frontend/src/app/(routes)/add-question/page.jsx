@@ -2,7 +2,11 @@
 
 import React,{useState,useEffect} from 'react';
 import Editor from '../../../Components/editor';
+
 import {useRouter} from 'next/navigation';
+
+
+
 export default function AskQuestion() {
   const router=useRouter();
     const [title,setTitle]=useState("");
