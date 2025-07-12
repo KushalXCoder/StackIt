@@ -15,12 +15,13 @@ export default function AskQuestion() {
 		e.preventDefault();
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(description, "text/html");
-
+		console.log(description);
 		const base64Images = Array.from(doc.querySelectorAll("img"))
 			.map((img) => img.src)
 			.filter((src) => src.startsWith("data:image"));
 		const tagsList = tags.trim().split(/\s+/);
 		const plainTextDescription = doc.body.innerText;
+		console.log(plainTextDescription);
 		await fetch(`${serverUrl}/user/create/question`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
@@ -32,7 +33,7 @@ export default function AskQuestion() {
 			}),
 			credentials: "include",
 		});
-		// router.push("/");
+		router.push("/");
 	};
 
 	return (
