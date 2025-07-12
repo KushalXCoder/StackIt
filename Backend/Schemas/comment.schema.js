@@ -22,12 +22,10 @@ const commentSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		imagesUrl: [
-			{
-				type: String,
-				required: false,
-			},
-		],
+		imagesUrl: {
+			type: [String],
+			required: false,
+		},
 	},
 	{
 		timestamps: true,

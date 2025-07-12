@@ -24,12 +24,10 @@ const notificationSchema = new mongoose.Schema(
 			type: mongoose.Schema.ObjectId,
 			ref: "Answer",
 		},
-		imagesUrl: [
-			{
-				type: String,
-				required: false,
-			},
-		],
+		imagesUrl: {
+			type: [String],
+			required: false,
+		},
 	},
 	{
 		timestamps: true,
