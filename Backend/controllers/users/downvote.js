@@ -2,7 +2,7 @@ const User = require('../../Schemas/user.schema');
 const Answer = require('../../Schemas/answer.schema');
 
 
-async function upvote(req, res) {
+async function downvote(req, res) {
     try {
         const { answerId } = req.body;
 
@@ -16,13 +16,13 @@ async function upvote(req, res) {
             });
         }
 
-        const hasUpvoted = answer.upvotes.includes(userId);
+        const hasDownvoted = answer.downvotes.includes(userId);
 
-        if (hasUpvoted) {
-            answer.upvotes = answer.upvotes.filter(id => id.toString() !== userId);
-        } else {
-            answer.upvotes.push(userId);
+        if (hasDownvoted) {
             answer.downvotes = answer.downvotes.filter(id => id.toString() !== userId);
+        } else {
+            answer.downvotes.push(userId);
+            answer.upvotes = answer.upvotes.filter(id => id.toString() !== userId);
         }
 
         await answer.save();
@@ -31,9 +31,9 @@ async function upvote(req, res) {
             status: "success",
             data: {
                 answerId: answer._id,
-                upvotes: answer.upvotes.length,
                 downvotes: answer.downvotes.length,
-                userUpvoted: !hasUpvoted
+                upvotes: answer.upvotes.length,
+                userdownvoted: !hasDownvoted
             }
         });
 
@@ -46,4 +46,4 @@ async function upvote(req, res) {
     }
 }
 
-module.exports = upvote;
+module.exports = downvote;

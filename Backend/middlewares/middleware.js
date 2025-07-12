@@ -77,6 +77,11 @@ async function middleware(role, req, res, next) {
 				});
 				return;
 			}
+			// Attach user info to request
+			// @ts-ignore
+			req.user = userExists;
+			// @ts-ignore
+			req.userData = userData;
 		} catch (error) {
 			res.status(404).json({
 				status: "error",

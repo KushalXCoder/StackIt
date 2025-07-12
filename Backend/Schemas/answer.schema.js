@@ -6,24 +6,24 @@ const answerSchema = new mongoose.Schema(
 	{
 		questionId: {
 			type: mongoose.Schema.ObjectId,
-			ref: Question,
+			ref: "Question",
 			required: true,
 		},
 		answeredBy: {
 			type: mongoose.Schema.ObjectId,
-			ref: User,
+			ref: "User",
 			required: true,
 		},
 		upvote: [
 			{
 				type: mongoose.Schema.ObjectId,
-				ref: User,
+				ref: "User",
 			},
 		],
 		downvote: [
 			{
 				type: mongoose.Schema.ObjectId,
-				ref: User,
+				ref: "User",
 			},
 		],
 		content: {
@@ -33,7 +33,7 @@ const answerSchema = new mongoose.Schema(
 		mentions: [
 			{
 				type: mongoose.Schema.ObjectId,
-				ref: User,
+				ref: "User",
 			},
 		],
 		imageUrl: [
