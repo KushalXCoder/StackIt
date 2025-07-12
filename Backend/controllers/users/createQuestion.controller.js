@@ -16,11 +16,9 @@ async function createQuestion(req, res) {
 			});
 		}
 
-		const { userId, title, content, tags, images } = req.body;
+		const { title, content, tags, images } = req.body;
 
 		if (
-			!userId ||
-			typeof userId !== "string" ||
 			!title ||
 			typeof title !== "string" ||
 			!content ||
@@ -40,7 +38,8 @@ async function createQuestion(req, res) {
 		const createdQuestion = await Question.insertOne({
 			title,
 			content,
-			askedBy: userId,
+			// @ts-ignore
+			askedBy: req.user._id,
 			tags,
 			imagesUrl: images,
 		});

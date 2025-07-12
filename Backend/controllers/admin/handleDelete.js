@@ -2,6 +2,7 @@
 
 const Answer = require("../../Schemas/answer.schema");
 const Comment = require("../../Schemas/comment.schema");
+const Notification = require("../../Schemas/notification.schema");
 const Question = require("../../Schemas/question.schema");
 
 /**
@@ -76,6 +77,13 @@ async function handleDelete(req, res) {
 				});
 			}
 
+			await Notification.insertOne({
+				userId: deletedQuestion.askedBy,
+				content: `Admin just deleted your question`,
+				questionId: deletedQuestion._id,
+				notificationType: "AdminAction",
+			});
+
 			return res.status(200).json({
 				status: "success",
 				data: "Successfully deleted the question",
@@ -92,6 +100,13 @@ async function handleDelete(req, res) {
 				});
 			}
 
+			await Notification.insertOne({
+				userId: deletedAnswer.answeredBy,
+				content: `Admin just deleted your answer`,
+				questionId: deletedAnswer._id,
+				notificationType: "AdminAction",
+			});
+
 			return res.status(200).json({
 				status: "success",
 				data: "Successfully deleted the answer",
@@ -107,6 +122,13 @@ async function handleDelete(req, res) {
 					data: "Failed to delete the comment",
 				});
 			}
+
+			await Notification.insertOne({
+				userId: deletedComment.postedBy,
+				content: `Admin just deleted your comment`,
+				questionId: deletedComment._id,
+				notificationType: "AdminAction",
+			});
 
 			return res.status(200).json({
 				status: "success",
