@@ -3,9 +3,10 @@
 import React,{useState,useEffect} from 'react';
 import Editor from '../../../Components/editor';
 export default function AskQuestion() {
+    const [title,setTitle]=useState("");
   return (
     <div className="font-funnelDisplay px-20 bg-gray-100 p-5">
-        <div className="max-w-full mx-auto p-6 bg-white rounded-2xl shadow-lg mb-6">
+        <form className="max-w-full mx-auto p-6 bg-white rounded-2xl shadow-lg mb-6">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Ask a Question</h2>
 
           {/* Title Input */}
@@ -43,7 +44,7 @@ export default function AskQuestion() {
           >
             Submit
           </button>
-      </div>
+      </form>
     </div>
   );
 }
