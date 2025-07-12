@@ -34,7 +34,7 @@ const answerSchema = new mongoose.Schema(
 				ref: "User",
 			},
 		],
-		imageUrl: [
+		imagesUrl: [
 			{
 				type: String,
 				required: false,
