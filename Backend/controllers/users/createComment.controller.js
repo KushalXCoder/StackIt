@@ -1,13 +1,13 @@
 // @ts-check
 
-const Answer = require("../../Schemas/answer.schema");
+const Comment = require("../../Schemas/comment.schema");
 
 /**
  *
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-async function createAnswer(req, res) {
+async function createComment(req, res) {
 	try {
 		if (!req.body) {
 			return res.status(404).json({
@@ -16,13 +16,13 @@ async function createAnswer(req, res) {
 			});
 		}
 
-		const { userId, questionId, content, mentions, images } = req.body;
+		const { userId, answerId, content, mentions, images } = req.body;
 
 		if (
 			!userId ||
 			typeof userId !== "string" ||
-			!questionId ||
-			typeof questionId !== "string" ||
+			!answerId ||
+			typeof answerId !== "string" ||
 			!content ||
 			typeof content !== "string" ||
 			!mentions ||
@@ -37,24 +37,24 @@ async function createAnswer(req, res) {
 			});
 		}
 
-		const createdAnswer = await Answer.insertOne({
+		const createdComment = await Comment.insertOne({
 			content,
-			answeredBy: userId,
-			questionId,
+			postedBy: userId,
+			answerId,
 			mentions,
 			imagesUrl: images,
 		});
 
-		if (!createdAnswer) {
+		if (!createdComment) {
 			return res.status(500).json({
 				status: "error",
-				data: "Failed to create a new answer",
+				data: "Failed to create a new comment",
 			});
 		}
 
 		return res.status(200).json({
 			status: "success",
-			data: "Added a new answer",
+			data: "Added a new comment",
 		});
 	} catch (error) {
 		console.error(`Error in ${req.originalUrl}: $error`);
@@ -65,4 +65,4 @@ async function createAnswer(req, res) {
 	}
 }
 
-module.exports = createAnswer;
+module.exports = createComment;
