@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
 			default: "guest",
 		},
 		notificationsCount: {
-			type: number,
+			type: Number,
 			default: 0,
 		},
 		profilePictureUrl: {
