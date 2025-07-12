@@ -1,0 +1,22 @@
+auth
+- login
+- sign up
+- forgot password
+
+
+
+admin
+- change role
+- delete questions, answers, comments
+
+user
+- create question, answer, comment
+- upvote or downvote answer
+- tag
+- get users
+- owner
+- - question owner - accept or reject answer, delete / edit question
+- - answer / comment owner - edit and delete answer / comment
+
+guest
+- view questions, answers, comments
