@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post("/login", express.json(), handleLogin);
 router.post("/signup", express.json(), handleSignUp);
-router.post("/check", (req, res, next) => middleware("admin|user", req, res, next), checkLoggedIn);
+router.get("/check", (req, res, next) => middleware("admin|user", req, res, next), checkLoggedIn);
 
 module.exports = router;
