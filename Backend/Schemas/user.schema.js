@@ -2,12 +2,6 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
 	{
-		email: {
-			type: String,
-			required: true,
-			unique: true,
-			match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-		},
 		username: {
 			type: String,
 			required: true,
@@ -22,14 +16,12 @@ const userSchema = new mongoose.Schema(
 			enum: ["guest", "user", "admin"],
 			default: "guest",
 		},
-		notifications: [
-			{
-				type: mongoose.Schema.ObjectId,
-				ref: "Notification",
-			},
-		],
+		notificationsCount: {
+			type: number,
+			default: 0,
+		},
 		profilePictureUrl: {
-			type: [String],
+			type: String,
 			required: false,
 		},
 	},

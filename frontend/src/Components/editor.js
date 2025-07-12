@@ -1,20 +1,15 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
 import 'quill/dist/quill.snow.css';
-//import 'quill-emoji/dist/quill-emoji.css';
 
-export default function Editor() {
+export default function Editor({ onChange }) {
   const editorRef = useRef(null);
+  const quillInstance = useRef(null);
 
   useEffect(() => {
-    let quillInstance;
-
     const setupEditor = async () => {
       const QuillModule = await import('quill');
       const Quill = QuillModule.default;
-
-    //   const { default: Emoji } = await import('quill-emoji');
-    //   Quill.register('module/emoji', Emoji);
 
       const toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],
@@ -33,32 +28,29 @@ export default function Editor() {
         ['clean']
       ];
 
-      if (!quillInstance) {
-        console.log(document)
-        quillInstance = new Quill("#editor", {
+      if (editorRef.current && !quillInstance.current) {
+        quillInstance.current = new Quill(editorRef.current, {
           theme: 'snow',
           modules: {
             toolbar: toolbarOptions,
-            // emoji: true // ✅ this activates emoji module
-          }
+          },
+        });
+
+        // 🔁 on text change, call onChange
+        quillInstance.current.on('text-change', () => {
+          const html = editorRef.current.querySelector('.ql-editor').innerHTML;
+          onChange && onChange(html);
         });
       }
     };
 
     setupEditor();
-
-    return () => {
-      quillInstance = null;
-    };
-  }, []);
+  }, [onChange]);
 
   return (
-    <div>
-      <div
-        ref={editorRef}
-        id="editor"
-        style={{ height: '300px', backgroundColor: 'white' }}
-      />
-    </div>
+    <div
+      ref={editorRef}
+      style={{ height: '300px', backgroundColor: 'white' }}
+    />
   );
 }

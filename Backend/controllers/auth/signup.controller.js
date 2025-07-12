@@ -58,9 +58,11 @@ async function handleSignUp(req, res) {
 			role: user.role,
 		});
 
+		res.cookie("user-data", token);
+
 		res.status(200).json({
 			status: "success",
-			data: token,
+			data: "Logged in successfully",
 		});
 	} catch (error) {
 		console.error(`Error in ${req.originalUrl}:`, error);

@@ -14,7 +14,7 @@ const Users = require("../Schemas/user.schema");
 async function middleware(role, req, res, next) {
 	try {
 		console.log("request incoming:", req.originalUrl, req.url);
-		if (!req.headers.authorization) {
+		if (!req.cookies["user-data"]) {
 			res.status(404).json({
 				status: "error",
 				data: "Missing authorization header",
@@ -22,7 +22,7 @@ async function middleware(role, req, res, next) {
 			return;
 		}
 
-		const token = req.headers.authorization;
+		const token = req.cookies["user-data"];
 		if (!token.split(" ")[1]) {
 			res.status(404).json({
 				status: "error",

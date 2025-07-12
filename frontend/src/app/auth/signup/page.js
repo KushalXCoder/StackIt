@@ -1,7 +1,18 @@
+'use client'
 import Link from 'next/link';
 import React from 'react';
+import {useState} from 'react'
 
 const SignUp = () => {
+  const[username,setUsername]=useState('');
+  const[password,setPassword]=useState('');
+  const handSubmit=async(e)=>{
+    await fetch('http://localhost:9000/auth/signup',{
+      method:'POST',
+      headers:{'Content-Type':'applications/json'},
+      body:JSON.stringify({username,password})
+    })
+  }
   return (
     <div className="w-screen h-[calc(100vh-96px)] flex justify-center items-center bg-emerald-50 px-4">
       <div className="bg-white shadow-lg rounded-2xl w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-md p-6 sm:p-8">
@@ -12,11 +23,13 @@ const SignUp = () => {
         <form className="flex flex-col space-y-4">
           <div>
             <label className="text-sm font-medium text-gray-700 font-funnelDisplay">
-              Email
+              Username
             </label>
             <input
-              type="email"
-              placeholder="you@example.com"
+              type="text"
+              value={username}
+              onChange={(e)=>setUsername(e.target.value)}
+              placeholder="Enter Your Name"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400 font-poppins text-sm sm:text-base"
             />
           </div>
@@ -27,6 +40,8 @@ const SignUp = () => {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
               placeholder="••••••••"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400 font-poppins text-sm sm:text-base"
             />
@@ -34,6 +49,7 @@ const SignUp = () => {
 
           <button
             type="submit"
+            onClick={handSubmit}
             className="mt-4 bg-emerald-500 text-white py-2 rounded-md hover:bg-emerald-600 transition font-funnelDisplay text-sm sm:text-base"
           >
             Signup

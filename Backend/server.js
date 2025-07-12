@@ -10,6 +10,7 @@ const adminRouter = require("./routes/adminRoutes");
 const userRouter = require("./routes/userRoutes");
 const guestRouter = require("./routes/guestRoutes");
 const middleware = require("./middlewares/middleware");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -36,8 +37,18 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/auth", authRouter);
-app.use("/admin", (req, res, next) => middleware("admin", req, res, next), adminRouter);
-app.use("/user", (req, res, next) => middleware("admin|user", req, res, next), userRouter);
-app.use("/guest", (req, res, next) => middleware("admin|user|guest", req, res, next), guestRouter);
+app.use(
+	"/admin",
+	cookieParser(),
+	(req, res, next) => middleware("admin", req, res, next),
+	adminRouter
+);
+app.use(
+	"/user",
+	cookieParser(),
+	(req, res, next) => middleware("admin|user", req, res, next),
+	userRouter
+);
+app.use("/guest", guestRouter);
 
 app.listen(port, () => console.log("Connected to port:", port));
