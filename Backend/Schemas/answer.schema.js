@@ -34,12 +34,10 @@ const answerSchema = new mongoose.Schema(
 				ref: "User",
 			},
 		],
-		imagesUrl: [
-			{
-				type: String,
-				required: false,
-			},
-		],
+		imagesUrl: {
+			type: [String],
+			required: false,
+		},
 	},
 	{
 		timestamps: true,
