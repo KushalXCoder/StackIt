@@ -2,7 +2,9 @@
 
 import React,{useState,useEffect} from 'react';
 import Editor from '../../../Components/editor';
+import {useRouter} from 'next/navigation';
 export default function AskQuestion() {
+  const router=useRouter();
     const [title,setTitle]=useState("");
     const[description,setDescription]=useState("");
     const[tags,setTags]=useState("");
@@ -16,11 +18,12 @@ export default function AskQuestion() {
   .filter(src => src.startsWith("data:image"));
   const tagsList = tags.trim().split(/\s+/);
   const plainTextDescription = doc.body.innerText;
-    await fetch("http://localhost:9000/create/questions", {
+    await fetch("http://localhost:9000/user/create/question", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title:title, content: plainTextDescription, tags:tagsList,images:base64Images }),
     });
+    router.push('/');
     }
 
   return (

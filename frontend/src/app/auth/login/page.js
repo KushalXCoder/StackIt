@@ -2,17 +2,19 @@
 import Link from 'next/link';
 import React from 'react';
 import {useState} from 'react';
-
+import {useRouter} from 'next/navigation';
 const LoginPage = () => {
   const[password,setPassword]=useState('');
   const[username,setUsername]=useState('');
+  const router=useRouter();
   const buttonClick=async(e)=>{
     e.preventDefault();
     await fetch('http://localhost:9000/auth/login',{
       method:"POST",
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({username:username, password:password})
-    })
+    });
+    router.push('/');
   }
   return (
     <div className="w-screen h-[calc(100vh-96px)] flex justify-center items-center bg-emerald-50 px-4">

@@ -2,8 +2,10 @@
 import Link from 'next/link';
 import React from 'react';
 import {useState} from 'react'
+import {useRouter} from 'next/navigation';
 
 const SignUp = () => {
+  const router=useRouter();
   const[username,setUsername]=useState('');
   const[password,setPassword]=useState('');
   const handSubmit=async(e)=>{
@@ -11,7 +13,8 @@ const SignUp = () => {
       method:'POST',
       headers:{'Content-Type':'applications/json'},
       body:JSON.stringify({username,password})
-    })
+    });
+    router.push('/auth/login');
   }
   return (
     <div className="w-screen h-[calc(100vh-96px)] flex justify-center items-center bg-emerald-50 px-4">
@@ -20,7 +23,7 @@ const SignUp = () => {
           Signup to StackIt
         </h2>
         <p className='font-poppins mb-3 text-center text-[16px]'>Happy to see you back, lets solve some questions</p>
-        <form className="flex flex-col space-y-4">
+        <form className="flex flex-col space-y-4" onSubmit={(e) => e.preventDefault()}>
           <div>
             <label className="text-sm font-medium text-gray-700 font-funnelDisplay">
               Username
