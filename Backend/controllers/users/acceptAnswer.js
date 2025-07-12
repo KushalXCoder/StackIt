@@ -6,7 +6,14 @@ async function acceptAnswer(req, res) {
     try {
         const userId = req.user._id;
         const { questionId, answerId } = req.body;
-
+        
+        if (!questionId || !answerId) {
+            return res.status(400).json({
+                status: "bad-request",
+                error: "questionId and answerId are required",
+            });
+        }
+        
         const question = await Question.findById(questionId);
         if (!question) {
             return res.status(404).json({
@@ -14,6 +21,14 @@ async function acceptAnswer(req, res) {
                 error: "No question found for given id"
             });
         }
+
+        if (question.askedBy.toString() !== userId.toString()) {
+            return res.status(403).json({
+                status: "unauthorized",
+                error: "You are not authorized to accept the answer"
+            });
+        }
+
         const answer = await Answer.findById(answerId);
         if (!answer) {
             return res.status(404).json({
@@ -44,3 +59,5 @@ async function acceptAnswer(req, res) {
         });
     }
 }
+
+module.export = acceptAnswer;
