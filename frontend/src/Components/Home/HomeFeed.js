@@ -8,21 +8,18 @@ const HomeFeed = () => {
 
   useEffect(() => {
     const fetchQuestions = async() => {
-      const res = await fetch("http://localhost:9000/guest/getQuestions");
-      const data = await res.json();
-      console.log(data);
+      const res = await fetch("http://localhost:9000/guest/questions");
+      const questions = await res.json();
+      setQuestionsData(questions.data);
     }
     fetchQuestions();
   });
 
   return (
     <div className='home-feed flex flex-col gap-5 mt-10'>
-        <Question/>
-        <Question/>
-        <Question/>
-        <Question/>
-        <Question/>
-        <Question/>
+      {questionsData.map((question,index) => (
+        <Question key={index} data={question}/>
+      ))}
     </div>
   )
 }
