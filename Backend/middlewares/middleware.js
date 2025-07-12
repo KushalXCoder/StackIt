@@ -13,7 +13,6 @@ const Users = require("../Schemas/user.schema");
  */
 async function middleware(role, req, res, next) {
 	try {
-		console.log("request incoming:", req.originalUrl, req.url);
 		if (!req.cookies["user-data"]) {
 			res.status(404).json({
 				status: "error",
@@ -23,7 +22,7 @@ async function middleware(role, req, res, next) {
 		}
 
 		const token = req.cookies["user-data"];
-		if (!token.split(" ")[1]) {
+		if (!token) {
 			res.status(404).json({
 				status: "error",
 				data: "Missing Token",
@@ -31,8 +30,8 @@ async function middleware(role, req, res, next) {
 			return;
 		}
 
-		const userData = decrypt(token);
-		if (!userData) {
+		const userData = decrypt(`Bearer ${token}`);
+		if (userData === null) {
 			res.status(400).json({
 				status: "error",
 				data: "Invalid Token",

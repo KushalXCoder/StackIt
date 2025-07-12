@@ -50,7 +50,12 @@ async function handleLogin(req, res) {
 			role: user.role,
 		});
 
-		res.cookie("user-data", token);
+		res.cookie("user-data", token, {
+			httpOnly: true,
+			secure: process.env.ENV !== "dev",
+			sameSite: process.env.ENV !== "dev" ? "None" : "lax",
+			maxAge: 24 * 60 * 60 * 1000,
+		});
 
 		res.status(200).json({
 			status: "success",

@@ -28,7 +28,8 @@ const app = express();
 
 app.use(
 	cors({
-		origin: "*",
+		origin: process.env.CLIENT_URL ?? "http://localhost:3000",
+		credentials: true,
 	})
 );
 
@@ -41,14 +42,16 @@ app.use(
 	"/admin",
 	cookieParser(),
 	(req, res, next) => middleware("admin", req, res, next),
+	express.json(),
 	adminRouter
 );
 app.use(
 	"/user",
 	cookieParser(),
 	(req, res, next) => middleware("admin|user", req, res, next),
+	express.json(),
 	userRouter
 );
-app.use("/guest", guestRouter);
+app.use("/guest", express.json(), guestRouter);
 
 app.listen(port, () => console.log("Connected to port:", port));
