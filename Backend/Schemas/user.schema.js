@@ -28,12 +28,10 @@ const userSchema = new mongoose.Schema(
 				ref: "Notification",
 			},
 		],
-		profilePictureUrl: [
-			{
-				type: String,
-				required: false,
-			},
-		],
+		profilePictureUrl: {
+			type: [String],
+			required: false,
+		},
 	},
 	{
 		timestamps: true,

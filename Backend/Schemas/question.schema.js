@@ -18,17 +18,12 @@ const questionSchema = new mongoose.Schema(
 			type: mongoose.Schema.ObjectId,
 			ref: "Answer",
 		},
-		tags: [
-			{
-				type: String,
-			},
-		],
-		imagesUrl: [
-			{
-				type: String,
-				required: false,
-			},
-		],
+		tags: {
+			type: [String],
+		},
+		imagesUrl: {
+			type: [String],
+		},
 	},
 	{
 		timestamps: true,
