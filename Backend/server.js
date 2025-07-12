@@ -6,6 +6,10 @@ const initRedis = require("./Databases/initRedis");
 const initCloudinary = require("./Databases/initCloudinary");
 const checkEnv = require("./Utils/checkEnv");
 const authRouter = require("./routes/authRoutes");
+const adminRouter = require("./routes/adminRoutes");
+const userRouter = require("./routes/userRoutes");
+const guestRouter = require("./routes/guestRoutes");
+const middleware = require("./middlewares/middleware");
 
 dotenv.config();
 
@@ -32,5 +36,8 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/auth", authRouter);
+app.use("/admin", middleware("admin"), adminRouter);
+app.use("/user", middleware("admin|user"), userRouter);
+app.use("/guest", middleware("admin|user|guest"), guestRouter);
 
 app.listen(port, () => console.log("Connected to port:", port));
