@@ -6,7 +6,6 @@ const editAnswer = require("../controllers/users/editAnswer.controller");
 const editComment = require("../controllers/users/editComment.controller");
 const editQuestion = require("../controllers/users/editQuestion");
 const upvote = require("../controllers/users/upvote");
-const downvote = require("../controllers/users/downvote");
 const getNotifications = require("../controllers/users/getNotification");
 
 const userRouter = express.Router();
