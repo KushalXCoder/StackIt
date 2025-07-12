@@ -1,5 +1,6 @@
 import { Funnel_Display, Poppins } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/Components/Navbar/Navbar";
 
 const funnelDisplay = Funnel_Display({
   variable: "--font-funnel-display",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${funnelDisplay.variable} ${poppins.variable} antialiased`}
       >
+        <Navbar/>
         {children}
       </body>
     </html>
