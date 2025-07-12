@@ -33,7 +33,7 @@ export default function Editor() {
         ['clean']
       ];
 
-      if (editorRef.current) {
+      if (!quillInstance) {
         console.log(document)
         quillInstance = new Quill("#editor", {
           theme: 'snow',
