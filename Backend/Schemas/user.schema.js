@@ -1,20 +1,38 @@
-// @ts-check
+import mongoose from 'mongoose';
 
-const mongoose = require("mongoose");
-
-const UsersSchema = new mongoose.Schema({
-	username: {
+const userSchema = new mongoose.Schema ({
+	email: {
 		type: String,
 		required: true,
 		unique: true,
+		match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+	},
+	username: {
+		type: String, 
+		required: true,
+		unique: true
 	},
 	password: {
-		required: true,
-		unique: true,
 		type: String,
+		required: true
 	},
+	role: {
+		type: String,
+		enum: ["guest", "user", "admin"],
+		default: "guest",
+	}, 
+	notifications: [{
+		type: mongoose.Schema.ObjectId,
+		ref: notification,
+	}], 
+	profilePictureUrl: [{
+		type: String,
+		required: false
+	}]
+}, {
+	timestamps: true
 });
 
-const Users = mongoose.model("users", UsersSchema, "users");
+const User = mongoose.model('User', userSchema);
 
-module.exports = Users;
+export default User;
