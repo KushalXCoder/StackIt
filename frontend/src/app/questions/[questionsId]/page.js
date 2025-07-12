@@ -1,8 +1,10 @@
 import Editor from '@/Components/editor';
-import React from 'react';
+import React, { useState } from 'react';
 
 const page = async ({ params }) => {
   const questionsId = (await params).questionsId;
+  const res = await fetch(`http://localhost:9000/guest/questions/${questionsId}/answers`);
+
   const tags = ['React', 'TailwindCSS', 'Coding', 'New'];
   return (
     <div className='questions-page h-[calc(100vh-96px)] w-screen mt-3 px-20'>

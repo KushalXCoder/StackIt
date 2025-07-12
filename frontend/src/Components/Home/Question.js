@@ -1,7 +1,14 @@
+"use client";
+
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
 const Question = ({ data }) => {
   const tags = ['React', 'TailwindCSS', 'Coding', 'New'];
+  const router = useRouter();
+  const handleClick = () => {
+    router.push(`/questions/${data._id}`);
+  }
   return (
     <div className='question-container w-full flex justify-between items-start font-poppins px-5 py-5 hover:bg-gray-100 group'>
         <div className='question-box flex flex-col w-[94%]'>
@@ -21,7 +28,7 @@ const Question = ({ data }) => {
                     <p className='question-content'>
                         {data.content}
                     </p>
-                    <button className='rounded border px-4 bg-black text-white py-1'>
+                    <button className='rounded border px-4 bg-black text-white py-1' onClick={handleClick}>
                         Answer
                     </button>
                 </div>
