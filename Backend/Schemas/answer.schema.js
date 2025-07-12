@@ -4,7 +4,7 @@ const Question = require("./question.schema");
 
 const answerSchema = new mongoose.Schema(
 	{
-		question: {
+		questionId: {
 			type: mongoose.Schema.ObjectId,
 			ref: Question,
 			required: true,
