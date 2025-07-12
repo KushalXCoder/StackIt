@@ -7,7 +7,7 @@ const notificationSchema = new mongoose.Schema(
 	{
 		userId: {
 			type: mongoose.Schema.ObjectId,
-			ref: User,
+			ref: "User",
 			required: true,
 		},
 		notificationType: {
@@ -20,12 +20,12 @@ const notificationSchema = new mongoose.Schema(
 		},
 		questionId: {
 			type: mongoose.Schema.ObjectId,
-			ref: Question,
+			ref: "Question",
 			required: true,
 		},
 		answerId: {
 			type: mongoose.Schema.ObjectId,
-			ref: Answer,
+			ref: "Answer",
 		},
 		imagesUrl: [
 			{

@@ -14,11 +14,11 @@ const questionSchema = new mongoose.Schema(
 		},
 		askedBy: {
 			type: mongoose.Schema.ObjectId,
-			ref: User,
+			ref: "User",
 		},
 		acceptedAnswer: {
 			type: mongoose.Schema.ObjectId,
-			ref: Answer,
+			ref: "Answer",
 		},
 		tags: [
 			{

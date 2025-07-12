@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Notification = require('../Schemas/notification.schema');
 
 const userSchema = new mongoose.Schema(
 	{
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema(
 		notifications: [
 			{
 				type: mongoose.Schema.ObjectId,
-				ref: notification,
+				ref: "Notification",
 			},
 		],
 		profilePictureUrl: [

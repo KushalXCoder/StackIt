@@ -6,18 +6,18 @@ const commentSchema = new mongoose.Schema(
 	{
 		postedBy: {
 			type: mongoose.Schema.ObjectId,
-			ref: User,
+			ref: "User",
 			required: true,
 		},
 		answerId: {
 			type: mongoose.Schema.ObjectId,
-			ref: Answer,
+			ref: "Answer",
 			required: true,
 		},
 		mentions: [
 			{
 				type: mongoose.Schema.ObjectId,
-				ref: User,
+				ref: "User",
 			},
 		],
 		content: {
