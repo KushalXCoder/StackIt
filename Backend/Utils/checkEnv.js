@@ -11,7 +11,9 @@ function checkEnv() {
 		process.env.PORT &&
 		process.env.ENCRYPTION_KEY &&
 		process.env.IV_LENGTH &&
-		process.env.SALT_ROUNDS
+		process.env.SALT_ROUNDS &&
+		process.env.ENV &&
+		process.env.CLIENT_URL
 	);
 }
 

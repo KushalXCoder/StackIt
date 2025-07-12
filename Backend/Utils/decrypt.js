@@ -8,7 +8,7 @@ const crypto = require("crypto");
  * @returns {Record<string, string | number> | null}
  */
 function decrypt(token) {
-	if (!token.startsWith("Bearer ") && token.length === 39) {
+	if (!token.startsWith("Bearer ")) {
 		console.error("Token must start with 'Bearer ' and be of exactly 39 characters");
 		return null;
 	}

@@ -1,15 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Hamburger from "./Hamburger";
 import Link from "next/link";
+import { serverUrl } from "@/Constants/contants";
 
 const Navbar = () => {
+	const [loggedIn, setLoggedIn] = useState(false);
+
 	useEffect(() => {
 		(async () => {
-			const isLoggedIn = await fetch(`${serverUrl}/auth/check`);
-			console.log(isLoggedIn);
+			const isLoggedIn = await fetch(`${serverUrl}/auth/check`).then((data) =>
+				data.status === 200 ? true : false
+			);
+			if (isLoggedIn) {
+				setLoggedIn(true);
+			}
 		})();
 	}, []);
 

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Editor from "../../../Components/editor";
 
 import { useRouter } from "next/navigation";
+import { serverUrl } from "@/Constants/contants";
 
 export default function AskQuestion() {
 	const router = useRouter();
@@ -20,7 +21,7 @@ export default function AskQuestion() {
 			.filter((src) => src.startsWith("data:image"));
 		const tagsList = tags.trim().split(/\s+/);
 		const plainTextDescription = doc.body.innerText;
-		await fetch("http://localhost:9000/user/create/question", {
+		await fetch(`${serverUrl}/user/create/question`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
@@ -29,8 +30,9 @@ export default function AskQuestion() {
 				tags: tagsList,
 				images: base64Images,
 			}),
+			credentials: "include",
 		});
-		router.push("/");
+		// router.push("/");
 	};
 
 	return (
