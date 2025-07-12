@@ -8,6 +8,7 @@ const editQuestion = require("../controllers/users/editQuestion");
 const upvote = require("../controllers/users/upvote");
 const downvote = require("../controllers/users/downvote");
 const getNotifications = require("../controllers/users/getNotification");
+const downvote = require("../controllers/users/downvote");
 
 const userRouter = express.Router();
 
