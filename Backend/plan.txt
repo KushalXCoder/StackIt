@@ -14,6 +14,7 @@ user
 - upvote or downvote answer
 - tag
 - get users
+- get notifications
 - owner
 - - question owner - accept or reject answer, delete / edit question
 - - answer / comment owner - edit and delete answer / comment
