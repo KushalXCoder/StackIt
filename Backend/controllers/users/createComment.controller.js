@@ -1,6 +1,9 @@
 // @ts-check
 
+const Answer = require("../../Schemas/answer.schema");
 const Comment = require("../../Schemas/comment.schema");
+const Notification = require("../../Schemas/notification.schema");
+const User = require("../../Schemas/user.schema");
 
 /**
  *
@@ -16,11 +19,9 @@ async function createComment(req, res) {
 			});
 		}
 
-		const { userId, answerId, content, mentions, images } = req.body;
+		const { answerId, content, mentions, images } = req.body;
 
 		if (
-			!userId ||
-			typeof userId !== "string" ||
 			!answerId ||
 			typeof answerId !== "string" ||
 			!content ||
@@ -37,13 +38,46 @@ async function createComment(req, res) {
 			});
 		}
 
+		const answer = await Answer.findById(answerId);
+		if (!answer) {
+			return res.status(404).json({
+				status: "error",
+				data: "No answer found with given id",
+			});
+		}
+
 		const createdComment = await Comment.insertOne({
 			content,
-			postedBy: userId,
+			// @ts-ignore
+			postedBy: req.user._id,
 			answerId,
 			mentions,
 			imagesUrl: images,
 		});
+
+		const notifications = [];
+
+		for (let mention of mentions) {
+			const userExists = await User.findById(mention);
+			if (userExists) {
+				notifications.push({
+					userId: mention,
+					content: `${mention} has mentioned you in their comment!`,
+					notificationType: "MentionedYou",
+				});
+			}
+		}
+
+		await Notification.insertMany([
+			...notifications,
+			{
+				userId: answer.answeredBy,
+				// @ts-ignore
+				content: `${req.user._id} just commented on your answer!`,
+				notificationType: "CommentedOnYourAnswer",
+				answerId,
+			},
+		]);
 
 		if (!createdComment) {
 			return res.status(500).json({
